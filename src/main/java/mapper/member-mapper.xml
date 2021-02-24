@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member">
+	
+	<resultMap id="resultMember" type="Member">
+		<id property="id" column="ID"></id>
+		<result property="passwd" column="PASSWD"></result>
+		<result property="name" column="NAME"></result>
+		<result property="email" column="EMAIL"></result>
+		<result property="name" column="GENDER"></result>
+		<result property="name" column="AGE"></result>
+		<result property="name" column="PHONE"></result>
+		<result property="address" column="ADDRESS"></result>
+		<result property="enrollDate" column="ENROLL_DATE"></result>
+	</resultMap>
+	
+<!-- member table의 모든 데이터  select -->
+	<select id="selectMemberAll" resultMap="resultMember">
+		SELECT * FROM MEMBER
+	</select>
+</mapper>
