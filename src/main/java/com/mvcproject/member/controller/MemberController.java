@@ -2,10 +2,14 @@ package com.mvcproject.member.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mvcproject.member.controller.model.dao.MemberDAO;
@@ -22,13 +26,25 @@ public class MemberController {
 		
 		List<Member> memberList = memberDao.selectMemberAll();
 		
-		for(int i=0; i < memberList.size(); i++) {
-			System.out.println(i);
-		}
+		/*
+		 * for(int i=0; i < memberList.size(); i++) { Member member = memberList.get(i);
+		 * System.out.println(i + "name: "+ member.getName());
+		 * System.out.println("email: "+member.getEmail()); }
+		 */
 		
-	
+		modelAndView.addObject("memberList",memberList);
+		
 		modelAndView.setViewName("member/memberList");
 		
 		return modelAndView;
+	}
+	@RequestMapping(value="memberView.do", method=RequestMethod.GET)
+	// 데이터 하나만 가져올 때 주로 사용
+	public String memberViewService(@RequestParam("id") String id,Model model) throws Exception{
+		Member member = memberDao.selectMember(id);
+		// modelAndView를 안 쓰고 그냥 model을 쓰면 값 저장만 한다.
+		model.addAttribute("member", member);
+		
+		return "member/memberView"; // 어디로 갈지 리턴할면 문자열로 리턴한다.
 	}
 }

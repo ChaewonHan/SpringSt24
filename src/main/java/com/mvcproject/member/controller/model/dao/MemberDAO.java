@@ -21,4 +21,9 @@ public class MemberDAO {
 		List<Member> memberList = sqlSession.selectList("Member.selectMemberAll");
 		return memberList;
 	}
+	
+	public Member selectMember(String userid) throws Exception{
+		Member member = sqlSession.selectOne("Member.selectMember", userid);
+		return member;
+	}
 }
