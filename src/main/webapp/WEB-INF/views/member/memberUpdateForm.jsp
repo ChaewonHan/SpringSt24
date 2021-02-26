@@ -10,21 +10,24 @@
 <body>
 <form action="memberUpdate.do" method="post" onsubmit="return ckeckSubmit();">
 	<table>
-	<tr>
-		<td>아이디</td>
-		<td><input type="text" name="id" id="inputId" value="${id}"></td>
-<!-- 		<td><input type="button" id="checkId" value="체크"></td> -->
-	</tr>
-	<tr>
-		<td>비밀번호</td>
-		<td><input type="text" name="passwd"></td>
-	</tr>
-	<tr>
-		<td>이름</td>
-		<td><input type="text" name="name"></td>
-	</tr>
+		<tr>
+			<td>아이디</td>
+			<td><input type="text" name="id" value="${member.id }"></td>
+		</tr>
+		<tr>
+			<td>비밀번호</td>
+			<td><input type="password" name="passwd" value="${member.passwd}"></td>
+		</tr>
+		<tr>
+			<td>이름</td>
+			<td><input type="text" name="name" value="${member.name }"></td>
+		</tr>
+		<tr>
+			<td>성별</td>
+			<td><input type="radio" name="gender" value="M" ${member.gender = 'M' ? 'checked':'' }>남</td>
+			<td><input type="radio" name="gender" value="F" ${member.gender = 'F' ? 'checked':'' }>여</td>
+		</tr>
 	</table>
-	<input type="submit" value="수정">
 </form>
 
 <script>

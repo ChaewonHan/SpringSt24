@@ -80,9 +80,9 @@ public class MemberController {
 	}
 	
 	@RequestMapping("memberUpdateForm.do")
-	public ModelAndView updateMemberForm(@RequestParam("id") String id, ModelAndView modelAndView) {
+	public ModelAndView updateMemberForm(@RequestParam("member") Member member, ModelAndView modelAndView) {
 		
-		modelAndView.addObject("id",id);
+		modelAndView.addObject("member",member);
 		modelAndView.setViewName("member/memberUpdateForm");
 		
 		return modelAndView;

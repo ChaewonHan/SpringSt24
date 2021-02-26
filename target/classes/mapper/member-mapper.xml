@@ -33,7 +33,7 @@
 	</insert>
 	<!-- member update -->
 	<update id="updateMember">
-		UPDATE MEMBER SET PASSWD = #{passwd}, NAME=#{name} WHERE ID=#{id}
+		UPDATE MEMBER SET PASSWD = #{passwd}, NAME=#{name}, GENDER=#{gender} WHERE ID=#{id}
 	</update>
 	<!-- member delete -->
 	<delete id="deleteMember" parameterType="Member">
