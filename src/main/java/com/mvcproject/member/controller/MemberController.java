@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mvcproject.member.controller.model.dao.MemberDAO;
@@ -47,4 +49,61 @@ public class MemberController {
 		
 		return "member/memberView"; // 어디로 갈지 리턴할면 문자열로 리턴한다.
 	}
+	
+//	@GetMapping()으로 쓸 수 있음
+	@RequestMapping(value="memberDel.do", method=RequestMethod.GET)
+	public ModelAndView deleteMember(Member member, ModelAndView modelAndView) throws Exception {
+		
+		int cnt = memberDao.deleteMember(member);
+		
+		modelAndView.addObject("cnt", cnt);
+		modelAndView.setViewName("member/memberDelComplete");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping("memberInsertForm.do")
+	public ModelAndView insertMemberForm(ModelAndView modelAndView) {
+		modelAndView.setViewName("member/memberInsert");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="memberInsert.do", method=RequestMethod.POST)
+	public ModelAndView insertMember(Member member, ModelAndView modelAndView) throws Exception{
+		
+		memberDao.insertMember(member);
+		
+		modelAndView.setViewName("member/memberJoinComplete");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping("memberUpdateForm.do")
+	public ModelAndView updateMemberForm(@RequestParam("id") String id, ModelAndView modelAndView) {
+		
+		modelAndView.addObject("id",id);
+		modelAndView.setViewName("member/memberUpdateForm");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="memberUpdate.do", method=RequestMethod.POST)
+	public ModelAndView updateMember(Member member, ModelAndView modelAndView) throws Exception{
+		
+		int cnt = memberDao.updateMember(member);
+		modelAndView.addObject("cnt", cnt);
+		modelAndView.setViewName("member/memberUpdateComplete");
+		
+		return modelAndView;
+	}
+	
+	/*
+	 * @RequestMapping(value="memberIdCheck.do", method=RequestMethod.GET)
+	 * 
+	 * @ResponseBody public int idCheck(@RequestParam("id") String id) throws
+	 * Exception{ System.out.println(id); int result = memberDao.idCheck(id);
+	 * 
+	 * return result; }
+	 */
 }

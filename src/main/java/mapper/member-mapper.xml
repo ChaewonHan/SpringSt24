@@ -23,4 +23,20 @@
 	<select id="selectMember" parameterType="String" resultMap="resultMember">
 		SELECT * FROM MEMBER WHERE ID = #{userid}
 	</select>
+	<!-- 아이디 중복 체크 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+		SELECT count(*) FROM MEMBER WHERE ID = #{id}
+	</select>
+	<!-- member insert -->
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO MEMBER (ID, PASSWD, NAME, EMAIL, GENDER, AGE, PHONE, ADDRESS) VALUES (#{id}, #{passwd}, #{name}, #{email}, #{gender}, #{age}, #{phone}, #{address})
+	</insert>
+	<!-- member update -->
+	<update id="updateMember">
+		UPDATE MEMBER SET PASSWD = #{passwd}, NAME=#{name} WHERE ID=#{id}
+	</update>
+	<!-- member delete -->
+	<delete id="deleteMember" parameterType="Member">
+		DELETE FROM MEMBER WHERE ID = #{id}
+	</delete>
 </mapper>

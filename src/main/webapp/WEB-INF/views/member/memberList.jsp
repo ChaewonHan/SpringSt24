@@ -20,6 +20,9 @@
 		<th>phone</th>
 		<th>address</th>
 		<th>date</th>
+		<th>삭제</th>
+		<th>수정</th>
+		<th>회원가입</th>
 </tr>
 <c:forEach var="member" items="${memberList}">
 	<tr>
@@ -32,6 +35,9 @@
 		<td>${member.phone }</td>
 		<td>${member.address }</td>
 		<td>${member.enrollDate }</td>
+		<td><a href="memberDel.do?id=${member.id}">삭제</a></td>
+		<td><a href="memberUpdateForm.do?id=${member.id}">수정</a>
+		<td><a href="memberInsertForm.do">가입</a>
 	</tr>	
 </c:forEach>
 </table>
