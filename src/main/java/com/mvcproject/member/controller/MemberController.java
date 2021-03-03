@@ -15,18 +15,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mvcproject.member.controller.model.dao.MemberDAO;
+import com.mvcproject.member.controller.model.service.MemberService;
 import com.mvcproject.member.controller.model.vo.Member;
 
 @Controller
 public class MemberController {
 	
 	@Autowired
-	MemberDAO memberDao;
+	MemberService memberService;
 	
 	@RequestMapping(value="memberList.do", method=RequestMethod.GET)
 	public ModelAndView memberListService(ModelAndView modelAndView) throws Exception{
 		
-		List<Member> memberList = memberDao.selectMemberAll();
+		List<Member> memberList = memberService.selectMemberAll();
 		
 		/*
 		 * for(int i=0; i < memberList.size(); i++) { Member member = memberList.get(i);
@@ -37,13 +38,12 @@ public class MemberController {
 		modelAndView.addObject("memberList",memberList);
 		
 		modelAndView.setViewName("member/memberList");
-		
 		return modelAndView;
 	}
 	@RequestMapping(value="memberView.do", method=RequestMethod.GET)
 	// 데이터 하나만 가져올 때 주로 사용
 	public String memberViewService(@RequestParam("id") String id,Model model) throws Exception{
-		Member member = memberDao.selectMember(id);
+		Member member = memberService.selectMember(id);
 		// modelAndView를 안 쓰고 그냥 model을 쓰면 값 저장만 한다.
 		model.addAttribute("member", member);
 		
@@ -54,7 +54,7 @@ public class MemberController {
 	@RequestMapping(value="memberDel.do", method=RequestMethod.GET)
 	public ModelAndView deleteMember(Member member, ModelAndView modelAndView) throws Exception {
 		
-		int cnt = memberDao.deleteMember(member);
+		int cnt = memberService.deleteMember(member);
 		
 		modelAndView.addObject("cnt", cnt);
 		modelAndView.setViewName("member/memberDelComplete");
@@ -72,7 +72,7 @@ public class MemberController {
 	@RequestMapping(value="memberInsert.do", method=RequestMethod.POST)
 	public ModelAndView insertMember(Member member, ModelAndView modelAndView) throws Exception{
 		
-		memberDao.insertMember(member);
+		memberService.insertMember(member);
 		
 		modelAndView.setViewName("member/memberJoinComplete");
 		
@@ -91,7 +91,7 @@ public class MemberController {
 	@RequestMapping(value="memberUpdate.do", method=RequestMethod.POST)
 	public ModelAndView updateMember(Member member, ModelAndView modelAndView) throws Exception{
 		
-		int cnt = memberDao.updateMember(member);
+		int cnt = memberService.updateMember(member);
 		modelAndView.addObject("cnt", cnt);
 		modelAndView.setViewName("member/memberUpdateComplete");
 		
